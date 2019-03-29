@@ -1,0 +1,88 @@
+ArrayList <barricade> b1;
+PImage road;
+
+int dy=0;
+
+int barricadenum=4;
+
+int u;
+
+car c1 ;
+speedmeter s1 ;
+
+boolean[] keys;
+int keynumber=2;
+float c = 0.1;
+boolean a;
+PVector drag = new PVector(0,-0.1);
+
+
+
+void setup() {
+  size(800, 500);
+  b1 = new ArrayList <barricade>();
+  c1 = new car();
+  s1 = new speedmeter();
+  for (int u=0; u<barricadenum; u++) 
+  {
+    b1.add(new barricade());
+  }
+  keys=new boolean [keynumber];
+}
+
+
+void draw() {
+  background(155);
+  road = loadImage("yol.jpg");
+  image(road, 150, dy, 500, 500);
+  image(road, 150, dy-500, 500, 500);
+  if (a) {
+    dy+=3.04;
+  } else {
+    dy+=2.99;
+  }
+  if (dy>=500) {
+    dy=0;
+  }
+  for (int ux=b1.size()-1; ux>0; ux--)
+  {
+    b1.get(ux).display();
+    b1.get(ux).isOffScreen();
+    b1.get(ux).accident();
+    b1.get(ux).drag();
+    
+
+    if (c1.isOffScreen) {
+      
+      b1.get(ux).applyForce(drag);
+    }
+  }
+  c1.display();
+  c1.control();
+  if (keys[0]) {
+    c1.cx-=5;
+  }
+  if (keys[1]) {
+    c1.cx+=5;
+  }
+  s1.display();
+  s1.update();
+}
+void keyPressed() {
+  if (key=='a') {
+    keys[0]=true;
+  }
+  if (key=='d') {
+    keys[1]=true;
+  }
+}
+void keyReleased() {
+  keys[0]=false;
+  keys[1]=false;
+}
+void mousePressed() {
+  a=true;
+}
+void mouseReleased() {
+  a=false;
+}
