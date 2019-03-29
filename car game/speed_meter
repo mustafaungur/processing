@@ -1,0 +1,29 @@
+class speedmeter
+{ 
+  float theta;
+  float l;
+  float i=150;
+  speedmeter() {
+    l=50;
+    theta=73;
+  }
+  void display() {
+    float a = 40 * cos(theta);
+    float b = 40 * sin(theta);
+    ellipse(720, 430, 100, 100);
+    line(720, 430, 720+a, 430+b);
+  }
+  void update() {
+    if (a) {
+      theta+=0.03;
+      if (theta>=76) {
+        theta=76;
+      }
+    } else {
+      theta-=0.02;
+      if (theta<=72) {
+        theta=72;
+      }
+    }
+  }
+}
