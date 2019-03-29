@@ -1,0 +1,52 @@
+class barricade
+{
+  PVector location;
+  PVector velocity;
+  boolean nitro;
+  PImage engel;
+  
+
+  barricade() {
+    location = new PVector(random(200, 600), random(-400, -20));
+    velocity = new PVector(0, 2.0);
+  }
+  void display() {
+    if(a) {
+      velocity.y=3;
+    }
+    else{
+      velocity.y=2;      
+    }
+    location.add(velocity);
+    engel = loadImage("engel.png");
+    rectMode(CENTER);
+    image(engel, location.x-40, location.y-20, 80, 40);
+  }
+  void isOffScreen() {
+    if (location.y+40>600) {
+      location.y=-10;
+      location.x=random(200, 600);
+    }
+  }
+  void accident() {
+    float dx = abs(location.x-c1.cx);
+    float dy = abs(location.y-c1.cy);
+    float dist = sqrt(dx*dx+dy*dy);    
+    if (dist<=70) {
+      noLoop();
+    }
+  }
+  void applyForce(PVector force) {
+    velocity.add(force);
+    }
+  PVector drag() {
+    float speed =velocity.mag();
+    float dragMagnitude = c * speed * speed;
+
+    PVector drag =velocity.copy();
+    drag.mult(-1);
+    drag.setMag(dragMagnitude);
+    return drag;
+
+  }
+}
