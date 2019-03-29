@@ -1,0 +1,28 @@
+class car
+{
+  int cx;
+  int cy;
+  PImage araba;
+  boolean isOffScreen = false;
+
+  car() {
+    cx=300;
+    cy=400;
+    araba = loadImage("araba.png");
+  }    
+
+  void display() {
+    image(araba, cx-50, cy-50, 100, 100);
+  }
+  void control () {
+    println(isOffScreen);
+    if (cx<175) {
+      isOffScreen = true;
+    } 
+    if (cx>625) {
+      isOffScreen = true;
+    } else {
+      isOffScreen = false;
+    }
+  }
+}
